@@ -2,62 +2,42 @@ package com.github.qrokodial.sparkle.utilities.io.properties;
 
 import com.github.qrokodial.sparkle.utilities.casting.CastableStringMap;
 import com.github.qrokodial.sparkle.utilities.casting.ReadableCastableDatabase;
+import com.github.qrokodial.sparkle.utilities.io.StreamUtils;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.io.InputStream;
 import java.util.Optional;
 
 public class ReadablePropertiesFile implements ReadableCastableDatabase<String> {
     protected CastableStringMap map;
-    private File file;
 
     /**
      * Instantiates the class.
      *
-     * @param file
+     * @param inputStream
      */
-    public ReadablePropertiesFile(File file) throws IOException {
+    public ReadablePropertiesFile(InputStream inputStream) throws IOException {
         map = new CastableStringMap();
-        setFile(file);
-        reload();
+        reload(inputStream);
     }
 
     /**
-     * @return the underlying file
+     * Reloads the contents of the database.
      */
-    public File getFile() {
-        return file;
-    }
-
-    /**
-     * Sets the underlying file.
-     *
-     * @param file
-     */
-    public void setFile(File file) {
-        this.file = file;
-    }
-
-    /**
-     * Reloads the contents of the file.
-     */
-    public void reload() throws IOException {
+    protected void reload(InputStream inputStream) throws IOException {
         map.clear();
 
-        if (getFile().exists() && getFile().isFile()) {
-            String contents = new String(Files.readAllBytes(getFile().toPath()));
-            String[] split = contents.replace("\r", "").split("\n");
+        String contents = StreamUtils.readFully(inputStream, "UTF-8");
+        String[] split = contents.replace("\r", "").split("\n");
 
-            for (String line : split) {
-                if (line.contains("#")) {
-                    line = line.substring(0, line.indexOf('#'));
-                }
+        for (String line : split) {
+            if (line.contains("#")) {
+                line = line.substring(0, line.indexOf('#'));
+            }
 
-                if (line.contains("=")) {
-                    String key = line.substring(0, line.indexOf('='));
-                    map.put(key, line.substring(key.length() + "=".length()));
-                }
+            if (line.contains("=")) {
+                String key = line.substring(0, line.indexOf('='));
+                map.put(key, line.substring(key.length() + "=".length()));
             }
         }
     }
