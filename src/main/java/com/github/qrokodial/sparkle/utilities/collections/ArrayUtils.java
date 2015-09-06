@@ -19,4 +19,20 @@ public class ArrayUtils {
 
         return false;
     }
+
+    /**
+     * Gets the classes backing the array.
+     *
+     * @param objects
+     * @return the class array
+     */
+    public static Class[] getTypes(Object... objects) {
+        Class[] types = new Class[objects.length];
+
+        for (int i = 0; i < objects.length; i++) {
+            types[i] = objects[i].getClass();
+        }
+
+        return types;
+    }
 }
