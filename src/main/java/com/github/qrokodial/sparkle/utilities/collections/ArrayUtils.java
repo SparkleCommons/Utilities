@@ -1,5 +1,10 @@
 package com.github.qrokodial.sparkle.utilities.collections;
 
+import com.github.qrokodial.sparkle.utilities.casting.SafeCast;
+
+import java.lang.reflect.Array;
+import java.util.Optional;
+
 public class ArrayUtils {
     /**
      * Checks to see if an array contains any specified elements.
@@ -34,5 +39,27 @@ public class ArrayUtils {
         }
 
         return types;
+    }
+
+    /**
+     * Attempts to cast an array to a given type.
+     *
+     * @param type
+     * @param objects
+     * @param <T>
+     * @return the optional-wrapped version of the casted array, if the cast was successful
+     */
+    public static <T> Optional<T[]> cast(Class<T> type, Object... objects) {
+        T[] casted = (T[])Array.newInstance(type, objects.length);
+        for (int i = 0; i < objects.length; i++) {
+            Optional<T> cast = SafeCast.toType(objects[i], type);
+
+            if (cast.isPresent()) {
+                casted[i] = cast.get();
+            } else {
+                return Optional.empty();
+            }
+        }
+        return Optional.of(casted);
     }
 }
