@@ -62,4 +62,23 @@ public class ArrayUtils {
         }
         return Optional.of(casted);
     }
+
+    /**
+     * Reverses an array.
+     *
+     * @param objects
+     * @param <T>
+     * @return the reversed array
+     */
+    public static <T> T[] reverse(T... objects) {
+        if (objects.length == 0) {
+            return objects;
+        }
+
+        T[] reversed = (T[])Array.newInstance(objects[0].getClass(), objects.length);
+        for (int i = 0; i < objects.length; i++) {
+            reversed[i] = objects[objects.length - 1 - i];
+        }
+        return reversed;
+    }
 }
