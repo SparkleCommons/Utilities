@@ -4,6 +4,7 @@ public class Version {
     private int major;
     private int minor;
     private int revision;
+    private int build;
     private Stage stage;
 
     public enum Stage {
@@ -42,11 +43,12 @@ public class Version {
      * @param revision
      * @param stage
      */
-    public Version(int major, int minor, int revision, Stage stage) {
+    public Version(int major, int minor, int revision, int build, Stage stage) {
         this.major = major;
         this.minor = minor;
         this.revision = revision;
         this.stage = stage;
+        this.build = build;
     }
 
     /**
@@ -71,6 +73,13 @@ public class Version {
     }
 
     /**
+     * @return the build version number
+     */
+    public int getBuild() {
+        return build;
+    }
+
+    /**
      * @return the stage of the version
      */
     public Stage getStage() {
@@ -92,6 +101,11 @@ public class Version {
         if (!getStage().equals(Stage.RELEASE)) {
             builder.append(" ");
             builder.append(getStage());
+        }
+
+        if (getBuild() != 0) {
+            builder.append(" Build ");
+            builder.append(getBuild());
         }
 
         return builder.toString();
