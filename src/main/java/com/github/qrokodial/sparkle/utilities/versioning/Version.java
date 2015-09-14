@@ -1,5 +1,7 @@
 package com.github.qrokodial.sparkle.utilities.versioning;
 
+import java.util.Optional;
+
 public class Version {
     private int major;
     private int minor;
@@ -33,6 +35,16 @@ public class Version {
          * When you have so much left to do and so much left to change you feel funny calling it an alpha release.
          */
         GAMMA;
+
+        /**
+         * Attempts to get the stage from a string.
+         *
+         * @param string the string
+         * @return the stage, if successful
+         */
+        public static Optional<Stage> fromString(String string) {
+            return Optional.ofNullable(valueOf(string.toUpperCase()));
+        }
     }
 
     /**
@@ -109,5 +121,75 @@ public class Version {
         }
 
         return builder.toString();
+    }
+
+    /**
+     * Attempts to convert a string into a {@link Version}.
+     *
+     * @param version the string
+     * @return the version, if successful
+     */
+    public static Optional<Version> fromString(String version) {
+        String[] split = version.toLowerCase().split(" ");
+
+        if (split.length < 1 || split.length > 4) {
+            return Optional.empty();
+        }
+
+        String[] numbers = split[0].split(".");
+
+        int major;
+        int minor;
+        int revision = 0;
+
+        if (numbers.length < 2 || numbers.length > 3) {
+            return Optional.empty();
+        }
+
+        try {
+            major = Integer.parseInt(numbers[0]);
+            minor = Integer.parseInt(numbers[1]);
+            if (numbers.length == 3) {
+                revision = Integer.parseInt(numbers[2]);
+            }
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
+
+        Optional<Stage> stage;
+
+        if (split.length == 1) {
+            stage = Optional.of(Stage.RELEASE);
+        } else {
+            stage = Stage.fromString(split[1]);
+        }
+
+        int build;
+
+        if (stage.isPresent() && split.length == 4) {
+            if (!split[2].contentEquals("build")) {
+                return Optional.empty();
+            }
+
+            try {
+                build = Integer.parseInt(split[3]);
+            } catch (NumberFormatException e) {
+                return Optional.empty();
+            }
+        } else if (stage.isPresent() && split.length == 3) {
+            if (!split[1].contentEquals("build")) {
+                return Optional.empty();
+            }
+
+            try {
+                build = Integer.parseInt(split[4]);
+            } catch (NumberFormatException e) {
+                return Optional.empty();
+            }
+        } else {
+            return Optional.empty();
+        }
+
+        return Optional.of(new Version(major, minor, revision, build, stage.get()));
     }
 }
