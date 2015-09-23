@@ -136,7 +136,7 @@ public class Version {
             return Optional.empty();
         }
 
-        String[] numbers = split[0].split(".");
+        String[] numbers = split[0].split("\\.");
 
         int major;
         int minor;
@@ -164,7 +164,7 @@ public class Version {
             stage = Stage.fromString(split[1]);
         }
 
-        int build;
+        int build = 0;
 
         if (stage.isPresent() && split.length == 4) {
             if (!split[2].contentEquals("build")) {
@@ -177,17 +177,11 @@ public class Version {
                 return Optional.empty();
             }
         } else if (stage.isPresent() && split.length == 3) {
-            if (!split[1].contentEquals("build")) {
-                return Optional.empty();
-            }
-
             try {
-                build = Integer.parseInt(split[4]);
+                build = Integer.parseInt(split[2]);
             } catch (NumberFormatException e) {
                 return Optional.empty();
             }
-        } else {
-            return Optional.empty();
         }
 
         return Optional.of(new Version(major, minor, revision, build, stage.get()));
