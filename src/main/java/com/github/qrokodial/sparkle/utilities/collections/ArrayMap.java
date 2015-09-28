@@ -205,7 +205,7 @@ public class ArrayMap<K, V> implements ConcurrentMap<K, V> {
      * @param index the index to aim for
      */
     public V put(K key, V value, int index) {
-        index = Math.min(Math.max(index, size() - 1), 0);
+        index = Math.max(Math.min(index, size() - 1), 0);
 
         int i = list.indexOf(key);
         if (i != -1) {
@@ -214,6 +214,7 @@ public class ArrayMap<K, V> implements ConcurrentMap<K, V> {
             } else if (i < index) {
                 index--;
             }
+            list.remove(key);
         }
 
         list.add(index, key);
