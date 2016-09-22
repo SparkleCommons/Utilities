@@ -7,6 +7,7 @@ A collection of miscellaneous utilities that aren't large enough to justify thei
 
 * [**Casting**](https://github.com/SparkleCommons/Utilities/tree/master/src/main/java/com/github/qrokodial/sparkle/utilities/casting) - Utilities to aid in type casting
 * [**Collections**](https://github.com/SparkleCommons/Utilities/tree/master/src/main/java/com/github/qrokodial/sparkle/utilities/collections) - Aids in managing collections
+* [**Concurrent**](https://github.com/SparkleCommons/Utilities/tree/master/src/main/java/com/github/qrokodial/sparkle/utilities/concurrent) - Aids in concurrent operations
 * [**IO**](https://github.com/SparkleCommons/Utilities/tree/master/src/main/java/com/github/qrokodial/sparkle/utilities/io) - Utilities to aid in bootstrapping any I/O functionality whether it be file or network based
 
 ## About Sparkle
