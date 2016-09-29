@@ -1,5 +1,8 @@
 package com.github.qrokodial.sparkle.utilities.characters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StringUtils {
     /**
      * Checks to see if a string starts with another string in a case-insensitive manner.
@@ -42,5 +45,42 @@ public class StringUtils {
         }
 
         return true;
+    }
+
+    /**
+     * Parses an array of string arguments so that things wrapped in quotes count as one element in the array.
+     *
+     * @param arguments the arguments to sanitize
+     * @param delimiter the delimiter to insert in between the elements in quotes (ie: " ")
+     * @return the sanitized array of string arguments
+     */
+    public static String[] parseArguments(String[] arguments, String delimiter) {
+        List<String> sanitized = new ArrayList<>();
+
+        for (int i = 0; i < arguments.length; i++) {
+            if (arguments[i].startsWith("\"")) {
+                StringBuilder buffer = new StringBuilder();
+                buffer.append(arguments[i].substring("\"".length()));
+
+                for (; i < arguments.length; i++) {
+                    buffer.append(arguments[i]);
+
+                    if (arguments[i].endsWith("\"")) {
+                        buffer.append(arguments[i].substring(0, arguments[i].length() - "\"".length()));
+                        buffer.append(delimiter);
+                        break;
+                    } else {
+                        buffer.append(arguments[i]);
+                        buffer.append(delimiter);
+                    }
+                }
+
+                sanitized.add(buffer.toString());
+            } else {
+                sanitized.add(arguments[i]);
+            }
+        }
+
+        return sanitized.toArray(new String[0]);
     }
 }
