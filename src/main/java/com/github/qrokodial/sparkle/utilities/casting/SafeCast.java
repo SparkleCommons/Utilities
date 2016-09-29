@@ -11,8 +11,33 @@ public class SafeCast {
      * @param <T>
      * @return the casted object, if successful
      */
+    @SuppressWarnings("unchecked")
     public static <T> Optional<T> toType(Object object, Class<T> typeClass) {
-        if (object == null || !typeClass.isInstance(object)) {
+        if (object == null) {
+            return Optional.empty();
+        }
+
+        if (object instanceof String) {
+            if (typeClass.isInstance(Number.class)) {
+                if (typeClass.isInstance(Byte.class)) {
+                    return (Optional<T>)toByte(object);
+                } else if (typeClass.isInstance(Short.class)) {
+                    return (Optional<T>)toShort(object);
+                } else if (typeClass.isInstance(Integer.class)) {
+                    return (Optional<T>)toInteger(object);
+                } else if (typeClass.isInstance(Long.class)) {
+                    return (Optional<T>)toLong(object);
+                } else if (typeClass.isInstance(Float.class)) {
+                    return (Optional<T>)toFloat(object);
+                } else if (typeClass.isInstance(Double.class)) {
+                    return (Optional<T>)toDouble(object);
+                }
+            } else if (typeClass.isInstance(Boolean.class)) {
+                return (Optional<T>)toBoolean(object);
+            }
+        }
+
+        if (!typeClass.isInstance(object)) {
             return Optional.empty();
         }
 
