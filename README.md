@@ -9,6 +9,7 @@ A collection of miscellaneous utilities that aren't large enough to justify thei
 * [**Collections**](https://github.com/SparkleCommons/Utilities/tree/master/src/main/java/com/github/qrokodial/sparkle/utilities/collections) - Aids in managing collections
 * [**Concurrent**](https://github.com/SparkleCommons/Utilities/tree/master/src/main/java/com/github/qrokodial/sparkle/utilities/concurrent) - Aids in concurrent operations
 * [**IO**](https://github.com/SparkleCommons/Utilities/tree/master/src/main/java/com/github/qrokodial/sparkle/utilities/io) - Utilities to aid in bootstrapping any I/O functionality whether it be file or network based
+* [**Reflection**](https://github.com/SparkleCommons/Utilities/tree/master/src/main/java/com/github/qrokodial/sparkle/utilities/reflection) - Utilities to aid in reflection
 
 ## About Sparkle
 
