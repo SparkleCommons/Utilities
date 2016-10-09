@@ -19,6 +19,7 @@ public class PropertiesFile extends ReadablePropertiesFile implements CastableDa
      */
     public PropertiesFile(File file) throws IOException {
         super(new FileInputStream(file));
+        this.file = file;
     }
 
     /**
