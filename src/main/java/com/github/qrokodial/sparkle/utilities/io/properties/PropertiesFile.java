@@ -5,6 +5,8 @@ import com.github.qrokodial.sparkle.utilities.casting.CastableDatabase;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Optional;
 
 public class PropertiesFile extends ReadablePropertiesFile implements CastableDatabase<String, String> {
@@ -40,6 +42,22 @@ public class PropertiesFile extends ReadablePropertiesFile implements CastableDa
      */
     public void reload() throws IOException {
         super.reload(new FileInputStream(getFile()));
+    }
+
+    /**
+     * Saves the contents of the database.
+     */
+    public void save() throws IOException {
+        StringBuilder buffer = new StringBuilder();
+
+        for (String key : keySet()) {
+            buffer.append(key);
+            buffer.append("=");
+            buffer.append(getString(key).get());
+            buffer.append("\n");
+        }
+
+        Files.write(getFile().toPath(), buffer.toString().getBytes(StandardCharsets.UTF_8));
     }
 
     /**
