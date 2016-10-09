@@ -1,8 +1,14 @@
 package com.github.qrokodial.sparkle.utilities.casting;
 
 import java.util.Optional;
+import java.util.Set;
 
 public interface ReadableCastableDatabase<K> {
+    /**
+     * @return a set of keys in the database
+     */
+    Set<K> keySet();
+
     /**
      * @param key
      * @return true if the database contains a key, false otherwise

@@ -6,7 +6,9 @@ import com.github.qrokodial.sparkle.utilities.io.StreamUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 public class ReadablePropertiesFile implements ReadableCastableDatabase<String> {
     protected CastableStringMap map;
@@ -40,6 +42,14 @@ public class ReadablePropertiesFile implements ReadableCastableDatabase<String> 
                 map.put(key, line.substring(key.length() + "=".length()));
             }
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<String> keySet() {
+        return Collections.unmodifiableSet(map.keySet());
     }
 
     /**

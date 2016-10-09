@@ -1,7 +1,9 @@
 package com.github.qrokodial.sparkle.utilities.casting;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CastableStringMap implements CastableDatabase<String, String> {
@@ -12,6 +14,14 @@ public class CastableStringMap implements CastableDatabase<String, String> {
      */
     public CastableStringMap() {
         map = new ConcurrentHashMap<>();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<String> keySet() {
+        return Collections.unmodifiableSet(map.keySet());
     }
 
     /**
