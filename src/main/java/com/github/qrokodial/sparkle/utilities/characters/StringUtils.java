@@ -61,10 +61,9 @@ public class StringUtils {
             if (arguments[i].startsWith("\"")) {
                 StringBuilder buffer = new StringBuilder();
                 buffer.append(arguments[i].substring("\"".length()));
+                buffer.append(delimiter);
 
-                for (; i < arguments.length; i++) {
-                    buffer.append(arguments[i]);
-
+                for (i++; i < arguments.length; i++) {
                     if (arguments[i].endsWith("\"")) {
                         buffer.append(arguments[i].substring(0, arguments[i].length() - "\"".length()));
                         buffer.append(delimiter);
