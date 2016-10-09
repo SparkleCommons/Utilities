@@ -104,11 +104,16 @@ public class CastableStringMap implements CastableDatabase<String, String> {
     }
 
     /**
-     * {@inheritDoc}
+     * @param key
+     * @param value
      */
     @Override
     public void put(String key, String value) {
-        map.put(key, value);
+        if (value == null) {
+            remove(key);
+        } else {
+            map.put(key, value);
+        }
     }
 
     /**

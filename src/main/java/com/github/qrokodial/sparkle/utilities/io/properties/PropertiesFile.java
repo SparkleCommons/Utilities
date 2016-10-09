@@ -62,11 +62,16 @@ public class PropertiesFile extends ReadablePropertiesFile implements CastableDa
     }
 
     /**
-     * {@inheritDoc}
+     * @param key
+     * @param value
      */
     @Override
     public void put(String key, String value) {
-        map.put(key, value);
+        if (value == null) {
+            remove(key);
+        } else {
+            map.put(key, value);
+        }
     }
 
     /**
