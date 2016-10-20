@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.concurrent;
+package com.qrokodial.sparkle.utilities.concurrent;
 
 import java.util.NoSuchElementException;
 import java.util.Queue;

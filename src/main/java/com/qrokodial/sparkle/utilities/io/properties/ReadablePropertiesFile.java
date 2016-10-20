@@ -1,8 +1,8 @@
-package com.github.qrokodial.sparkle.utilities.io.properties;
+package com.qrokodial.sparkle.utilities.io.properties;
 
-import com.github.qrokodial.sparkle.utilities.casting.CastableStringMap;
-import com.github.qrokodial.sparkle.utilities.casting.ReadableCastableDatabase;
-import com.github.qrokodial.sparkle.utilities.io.StreamUtils;
+import com.qrokodial.sparkle.utilities.casting.CastableStringMap;
+import com.qrokodial.sparkle.utilities.casting.ReadableCastableDatabase;
+import com.qrokodial.sparkle.utilities.io.StreamUtils;
 
 import java.io.IOException;
 import java.io.InputStream;

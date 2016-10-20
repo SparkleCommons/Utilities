@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.collections;
+package com.qrokodial.sparkle.utilities.collections;
 
 public class Tuple<A, B> {
     public final A first;

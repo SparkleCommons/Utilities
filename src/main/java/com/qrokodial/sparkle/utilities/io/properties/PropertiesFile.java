@@ -1,6 +1,6 @@
-package com.github.qrokodial.sparkle.utilities.io.properties;
+package com.qrokodial.sparkle.utilities.io.properties;
 
-import com.github.qrokodial.sparkle.utilities.casting.CastableDatabase;
+import com.qrokodial.sparkle.utilities.casting.CastableDatabase;
 
 import java.io.File;
 import java.io.FileInputStream;

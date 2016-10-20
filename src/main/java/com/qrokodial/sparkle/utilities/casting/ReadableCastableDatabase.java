@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.casting;
+package com.qrokodial.sparkle.utilities.casting;
 
 import java.util.Optional;
 import java.util.Set;

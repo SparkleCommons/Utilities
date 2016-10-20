@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.cleaning;
+package com.qrokodial.sparkle.utilities.cleaning;
 
 public interface Destroyable {
     /**

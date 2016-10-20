@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.characters;
+package com.qrokodial.sparkle.utilities.characters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +45,47 @@ public class StringUtils {
         }
 
         return true;
+    }
+
+    /**
+     * Combines an array of objects into their string representation.
+     *
+     * @param fragments the fragments combined
+     * @return the combined string representation
+     */
+    public static String combine(Object... fragments) {
+        StringBuilder buffer = new StringBuilder();
+
+        for (Object fragment : fragments) {
+            if (fragment instanceof Iterable) {
+                byte i = 0;
+
+                for (Object element : (Iterable)fragment) {
+                    buffer.append(element.toString());
+                    buffer.append(", ");
+                    i++;
+                }
+
+                if (i > 0) {
+                    buffer.setLength(buffer.length() - ", ".length());
+                }
+            } else if (fragment.getClass().isArray()) {
+                Object[] array = (Object[])fragment;
+
+                if (array.length > 0) {
+                    for (Object element : array) {
+                        buffer.append(element.toString());
+                        buffer.append(", ");
+                    }
+
+                    buffer.setLength(buffer.length() - ", ".length());
+                }
+            } else {
+                buffer.append(fragment.toString());
+            }
+        }
+
+        return buffer.toString();
     }
 
     /**

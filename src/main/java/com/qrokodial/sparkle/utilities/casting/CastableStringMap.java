@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.casting;
+package com.qrokodial.sparkle.utilities.casting;
 
 import java.util.Collections;
 import java.util.Map;

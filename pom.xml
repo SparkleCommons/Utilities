@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.qrokodial.sparkle</groupId>
+    <groupId>com.qrokodial.sparkle</groupId>
     <artifactId>utilities</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <url>https://github.com/SparkleCommons/Utilities</url>
     <description>A collection of miscellaneous utilities that aren't large enough to justify their own repositories</description>
 

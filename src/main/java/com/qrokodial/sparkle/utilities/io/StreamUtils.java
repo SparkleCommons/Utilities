@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.io;
+package com.qrokodial.sparkle.utilities.io;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

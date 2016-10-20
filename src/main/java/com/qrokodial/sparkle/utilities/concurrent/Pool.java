@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.concurrent;
+package com.qrokodial.sparkle.utilities.concurrent;
 
 public interface Pool<T> {
     /**

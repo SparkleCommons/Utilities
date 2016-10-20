@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.reflection;
+package com.qrokodial.sparkle.utilities.reflection;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;

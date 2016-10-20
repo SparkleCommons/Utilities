@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.versioning;
+package com.qrokodial.sparkle.utilities.versioning;
 
 import java.util.Optional;
 

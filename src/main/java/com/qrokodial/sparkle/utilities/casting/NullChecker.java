@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.casting;
+package com.qrokodial.sparkle.utilities.casting;
 
 public class NullChecker {
     /**

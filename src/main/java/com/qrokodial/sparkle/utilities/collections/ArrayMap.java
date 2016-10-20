@@ -1,4 +1,4 @@
-package com.github.qrokodial.sparkle.utilities.collections;
+package com.qrokodial.sparkle.utilities.collections;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

@@ -1,6 +1,6 @@
-package com.github.qrokodial.sparkle.utilities.collections;
+package com.qrokodial.sparkle.utilities.collections;
 
-import com.github.qrokodial.sparkle.utilities.casting.SafeCast;
+import com.qrokodial.sparkle.utilities.casting.SafeCast;
 
 import java.lang.reflect.Array;
 import java.util.Optional;
