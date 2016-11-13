@@ -1,4 +1,6 @@
-package com.qrokodial.sparkle.utilities.casting;
+package com.qrokodial.sparkle.utilities.casting.database;
+
+import com.qrokodial.sparkle.utilities.casting.SafeCast;
 
 import java.util.Collections;
 import java.util.Map;
@@ -95,9 +97,6 @@ public class CastableStringMap implements CastableDatabase<String, Object> {
         return SafeCast.toBoolean(map.get(key));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <T> Optional<T> get(String key, Class<T> valueType) {
         return SafeCast.toType(map.get(key), valueType);
