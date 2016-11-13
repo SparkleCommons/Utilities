@@ -6,7 +6,7 @@
 
     <groupId>com.qrokodial.sparkle</groupId>
     <artifactId>utilities</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <url>https://github.com/SparkleCommons/Utilities</url>
     <description>A collection of miscellaneous utilities that aren't large enough to justify their own repositories</description>
 
