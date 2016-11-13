@@ -13,10 +13,13 @@ public abstract class SimpleService implements Service {
         running = true;
 
         onStart();
-        while (isRunning()) {
-            onTick();
+
+        if (isRunning()) {
+            while (isRunning()) {
+                onTick();
+            }
+            onStop();
         }
-        onStop();
     }
 
     @Override
