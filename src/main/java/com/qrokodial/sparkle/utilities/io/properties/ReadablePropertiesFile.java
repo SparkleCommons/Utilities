@@ -48,6 +48,14 @@ public class ReadablePropertiesFile implements ReadableCastableDatabase<String> 
      * {@inheritDoc}
      */
     @Override
+    public int size() {
+        return map.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Set<String> keySet() {
         return Collections.unmodifiableSet(map.keySet());
     }

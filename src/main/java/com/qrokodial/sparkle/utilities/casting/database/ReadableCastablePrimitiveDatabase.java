@@ -5,6 +5,11 @@ import java.util.Set;
 
 public interface ReadableCastablePrimitiveDatabase<K> {
     /**
+     * @return the amount of entries in the database
+     */
+    int size();
+
+    /**
      * @return a set of keys in the database
      */
     Set<K> keySet();

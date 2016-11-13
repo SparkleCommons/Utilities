@@ -22,6 +22,14 @@ public class CastableStringMap implements CastableDatabase<String, Object> {
      * {@inheritDoc}
      */
     @Override
+    public int size() {
+        return map.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Set<String> keySet() {
         return Collections.unmodifiableSet(map.keySet());
     }
