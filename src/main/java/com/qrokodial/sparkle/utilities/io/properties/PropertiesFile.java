@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Optional;
 
-public class PropertiesFile extends ReadablePropertiesFile implements CastableDatabase<String, String> {
+public class PropertiesFile extends ReadablePropertiesFile implements CastableDatabase<String, Object> {
     private File file;
 
     /**
@@ -66,11 +66,11 @@ public class PropertiesFile extends ReadablePropertiesFile implements CastableDa
      * @param value
      */
     @Override
-    public void put(String key, String value) {
+    public void put(String key, Object value) {
         if (value == null) {
             remove(key);
         } else {
-            map.put(key, value);
+            map.put(key, value.toString());
         }
     }
 
@@ -78,7 +78,7 @@ public class PropertiesFile extends ReadablePropertiesFile implements CastableDa
      * {@inheritDoc}
      */
     @Override
-    public Optional<String> remove(String key) {
+    public Optional<Object> remove(String key) {
         return map.remove(key);
     }
 
