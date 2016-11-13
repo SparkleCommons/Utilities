@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class CastableStringMap implements CastableDatabase<String, String> {
+public class CastableStringMap implements CastableDatabase<String, Object> {
     private Map<String, String> map;
 
     /**
@@ -108,11 +108,11 @@ public class CastableStringMap implements CastableDatabase<String, String> {
      * @param value
      */
     @Override
-    public void put(String key, String value) {
+    public void put(String key, Object value) {
         if (value == null) {
             remove(key);
         } else {
-            map.put(key, value);
+            map.put(key, value.toString());
         }
     }
 
@@ -120,7 +120,7 @@ public class CastableStringMap implements CastableDatabase<String, String> {
      * {@inheritDoc}
      */
     @Override
-    public Optional<String> remove(String key) {
+    public Optional<Object> remove(String key) {
         return Optional.ofNullable(map.remove(key));
     }
 
