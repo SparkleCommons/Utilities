@@ -61,7 +61,7 @@ public class StringUtils {
                 byte i = 0;
 
                 for (Object element : (Iterable)fragment) {
-                    buffer.append(element.toString());
+                    buffer.append(element);
                     buffer.append(", ");
                     i++;
                 }
@@ -74,14 +74,14 @@ public class StringUtils {
 
                 if (array.length > 0) {
                     for (Object element : array) {
-                        buffer.append(element.toString());
+                        buffer.append(element);
                         buffer.append(", ");
                     }
 
                     buffer.setLength(buffer.length() - ", ".length());
                 }
             } else {
-                buffer.append(fragment.toString());
+                buffer.append(fragment);
             }
         }
 
