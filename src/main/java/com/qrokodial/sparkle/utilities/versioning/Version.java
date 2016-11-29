@@ -64,6 +64,29 @@ public class Version {
     }
 
     /**
+     * Instantiates the class, initializing the build to 0.
+     *
+     * @param major
+     * @param minor
+     * @param revision
+     * @param stage
+     */
+    public Version(int major, int minor, int revision, Stage stage) {
+        this(major, minor, revision, 0, stage);
+    }
+
+    /**
+     * Instantiates the class, initializing the build to 0 and the stage to {@link Stage#RELEASE}.
+     *
+     * @param major
+     * @param minor
+     * @param revision
+     */
+    public Version(int major, int minor, int revision) {
+        this(major, minor, revision, Stage.RELEASE);
+    }
+
+    /**
      * @return the major version number
      */
     public int getMajor() {
