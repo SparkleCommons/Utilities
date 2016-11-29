@@ -133,14 +133,14 @@ public class Version {
         builder.append(".");
         builder.append(getRevision());
 
+        if (getBuild() != 0) {
+            builder.append(".");
+            builder.append(getBuild());
+        }
+
         if (!getStage().equals(Stage.RELEASE)) {
             builder.append(" ");
             builder.append(getStage());
-        }
-
-        if (getBuild() != 0) {
-            builder.append(" Build ");
-            builder.append(getBuild());
         }
 
         return builder.toString();
@@ -164,16 +164,21 @@ public class Version {
         int major;
         int minor;
         int revision = 0;
+        int build = 0;
 
-        if (numbers.length < 2 || numbers.length > 3) {
+        if (numbers.length < 2 || numbers.length > 4) {
             return Optional.empty();
         }
 
         try {
             major = Integer.parseInt(numbers[0]);
             minor = Integer.parseInt(numbers[1]);
-            if (numbers.length == 3) {
+            if (numbers.length >= 3) {
                 revision = Integer.parseInt(numbers[2]);
+            }
+
+            if (numbers.length == 4) {
+                build = Integer.parseInt(numbers[3]);
             }
         } catch (NumberFormatException e) {
             return Optional.empty();
@@ -185,26 +190,6 @@ public class Version {
             stage = Optional.of(Stage.RELEASE);
         } else {
             stage = Stage.fromString(split[1]);
-        }
-
-        int build = 0;
-
-        if (stage.isPresent() && split.length == 4) {
-            if (!split[2].contentEquals("build")) {
-                return Optional.empty();
-            }
-
-            try {
-                build = Integer.parseInt(split[3]);
-            } catch (NumberFormatException e) {
-                return Optional.empty();
-            }
-        } else if (stage.isPresent() && split.length == 3) {
-            try {
-                build = Integer.parseInt(split[2]);
-            } catch (NumberFormatException e) {
-                return Optional.empty();
-            }
         }
 
         return Optional.of(new Version(major, minor, revision, build, stage.get()));
