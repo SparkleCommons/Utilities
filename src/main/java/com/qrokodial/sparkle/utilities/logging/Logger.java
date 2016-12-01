@@ -198,10 +198,20 @@ public class Logger {
 
             buffer.append(StringUtils.combine(message));
 
+            byte[] payload = buffer.toString().getBytes(getCharset());
+
             getStreams().forEach(stream -> {
+                int offset = 0;
+
                 try {
-                    stream.write(buffer.toString().getBytes(getCharset()));
-                    stream.flush();
+                    while (payload.length > offset) {
+                        int length = Math.min(1024, payload.length - offset);
+
+                        stream.write(payload, offset, length);
+                        stream.flush();
+
+                        offset += length;
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
