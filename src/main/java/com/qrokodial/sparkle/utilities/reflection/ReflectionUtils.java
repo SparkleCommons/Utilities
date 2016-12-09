@@ -4,6 +4,7 @@ import com.qrokodial.sparkle.utilities.collections.ArrayUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
@@ -11,6 +12,46 @@ import java.util.List;
 import java.util.Optional;
 
 public class ReflectionUtils {
+    /**
+     * Gets a list of all fields within a class that are marked with an annotation.
+     *
+     * @param type       the class to search
+     * @param annotation the annotation to match
+     * @param checkSuper whether or not to check all of the class' supertypes
+     * @return the relevant list of methods
+     */
+    public static List<Field> getFieldsWithAnnotation(Class<?> type, Class<? extends Annotation> annotation, boolean checkSuper) {
+        List<Field> fields = new ArrayList<>();
+
+        Class<?> clazz = type;
+        while  (clazz != Object.class) {
+            for (Field field : type.getDeclaredFields()) {
+                if (field.isAnnotationPresent(annotation)) {
+                    fields.add(field);
+                }
+            }
+
+            if (!checkSuper) {
+                break;
+            }
+
+            clazz = clazz.getSuperclass();
+        }
+
+        return fields;
+    }
+
+    /**
+     * Gets a list of all fields within a class that are marked with an annotation.
+     *
+     * @param type       the class to search
+     * @param annotation the annotation to match
+     * @return the relevant list of methods
+     */
+    public static List<Field> getFieldsWithAnnotation(Class<?> type, Class<? extends Annotation> annotation) {
+        return getFieldsWithAnnotation(type, annotation, false);
+    }
+
     /**
      * Gets a list of all methods within a class that are marked with an annotation.
      *
