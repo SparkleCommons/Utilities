@@ -57,9 +57,10 @@ public class ReflectionUtils {
      *
      * @param type       the class to search
      * @param annotation the annotation to match
+     * @param checkSuper whether or not to check all of the class' supertypes
      * @return the relevant list of methods
      */
-    public static List<Method> getMethodsWithAnnotation(Class<?> type, Class<? extends Annotation> annotation) {
+    public static List<Method> getMethodsWithAnnotation(Class<?> type, Class<? extends Annotation> annotation, boolean checkSuper) {
         List<Method> methods = new ArrayList<>();
 
         Class<?> clazz = type;
@@ -70,10 +71,25 @@ public class ReflectionUtils {
                 }
             }
 
+            if (!checkSuper) {
+                break;
+            }
+
             clazz = clazz.getSuperclass();
         }
 
         return methods;
+    }
+
+    /**
+     * Gets a list of all methods within a class that are marked with an annotation.
+     *
+     * @param type       the class to search
+     * @param annotation the annotation to match
+     * @return the relevant list of methods
+     */
+    public static List<Method> getMethodsWithAnnotation(Class<?> type, Class<? extends Annotation> annotation) {
+        return getMethodsWithAnnotation(type, annotation, false);
     }
 
     /**
