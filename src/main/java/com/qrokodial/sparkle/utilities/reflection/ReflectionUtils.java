@@ -1,6 +1,7 @@
 package com.qrokodial.sparkle.utilities.reflection;
 
 import com.qrokodial.sparkle.utilities.collections.ArrayUtils;
+import com.qrokodial.sparkle.utilities.collections.Tuple;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -50,6 +51,61 @@ public class ReflectionUtils {
      */
     public static List<Field> getFieldsWithAnnotation(Class<?> type, Class<? extends Annotation> annotation) {
         return getFieldsWithAnnotation(type, annotation, false);
+    }
+
+    /**
+     * Gets the type and the value of an object's field.
+     *
+     * @param object the owner of the field
+     * @param field  the field
+     * @return a tuple containing the type in the first element and the value in the second
+     */
+    public static Tuple<Class<?>, Object> getFieldAttributes(Object object, Field field) {
+        boolean accessible = field.isAccessible();
+
+        if (!accessible) {
+            field.setAccessible(true);
+        }
+
+        Class<?> type = field.getType();
+        Object value = null;
+
+        try {
+            value = field.get(object);
+        } catch (IllegalAccessException shouldNeverHappen) {
+            shouldNeverHappen.printStackTrace();
+        }
+
+        if (!accessible) {
+            field.setAccessible(false);
+        }
+
+        return new Tuple<>(type, value);
+    }
+
+    /**
+     * Sets the value of a field for a given object, regardless if the field is accessible.
+     *
+     * @param object the given object
+     * @param field  the field to set
+     * @param value  the value to give the field
+     */
+    public static void setField(Object object, Field field, Object value) {
+        boolean accessible = field.isAccessible();
+
+        if (!accessible) {
+            field.setAccessible(true);
+        }
+
+        try {
+            field.set(object, value);
+        } catch (IllegalAccessException shouldNeverHappen) {
+            shouldNeverHappen.printStackTrace();
+        }
+
+        if (!accessible) {
+            field.setAccessible(false);
+        }
     }
 
     /**
