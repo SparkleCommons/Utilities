@@ -48,6 +48,34 @@ public class StringUtils {
     }
 
     /**
+     * Joins a range of an array of {@link CharSequence}s together by a delimiter.
+     *
+     * @param delimiter  the delimiter to use
+     * @param startIndex the start index of the array
+     * @param endIndex   the end index of the array
+     * @param fragments  the array
+     * @return the resulting string created by the operation
+     */
+    public static String join(String delimiter, int startIndex, int endIndex, CharSequence... fragments) {
+        if (startIndex < 0) {
+            startIndex = 0;
+        }
+
+        if (endIndex > fragments.length) {
+            endIndex = fragments.length;
+        }
+
+        StringBuilder buffer = new StringBuilder();
+
+        for (int i = startIndex; i < endIndex; i++) {
+            buffer.append(fragments[i]);
+            buffer.append(delimiter);
+        }
+
+        return buffer.toString();
+    }
+
+    /**
      * Combines an array of objects into their string representation.
      *
      * @param fragments the fragments combined
