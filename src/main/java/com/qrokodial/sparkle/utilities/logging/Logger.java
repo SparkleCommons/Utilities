@@ -1,6 +1,7 @@
 package com.qrokodial.sparkle.utilities.logging;
 
 import com.qrokodial.sparkle.utilities.characters.StringUtils;
+import com.qrokodial.sparkle.utilities.collections.Tuple;
 import com.qrokodial.sparkle.utilities.time.DateUtils;
 
 import java.io.IOException;
@@ -14,7 +15,48 @@ public class Logger {
     private List<OutputStream> streams;
     private Charset charset;
     private String id;
-    private Level minimumLevel;
+    private Map<OutputStream, Level> minimumLevels;
+
+    /**
+     * Constructs the class.
+     *
+     * @param streamInfo an array of tuples containing the streams to push logging output to and the minimum logging
+     *                   level that gets outputted to that particular stream
+     * @param charset    the charset in which to use for output
+     * @param id         an ID that can be used to identify this logger
+     */
+    public Logger(Tuple<OutputStream, Level>[] streamInfo, Charset charset, String id) {
+        streams = new ArrayList<>();
+
+        this.charset = charset;
+        this.id = id;
+
+        for (Tuple<OutputStream, Level> tuple : streamInfo) {
+            addStreams(tuple.getFirst());
+            minimumLevels.put(tuple.getFirst(), tuple.getSecond());
+        }
+    }
+
+    /**
+     * Constructs the class.
+     *
+     * @param streamInfo an array of tuples containing the streams to push logging output to and the minimum logging
+     *                   level that gets outputted to that particular stream
+     * @param id         an ID that can be used to identify this logger
+     */
+    public Logger(Tuple<OutputStream, Level>[] streamInfo, String id) {
+        this(streamInfo, StandardCharsets.UTF_8, id);
+    }
+
+    /**
+     * Constructs the class.
+     *
+     * @param streamInfo an array of tuples containing the streams to push logging output to and the minimum logging
+     *                   level that gets outputted to that particular stream
+     */
+    public Logger(Tuple<OutputStream, Level>[] streamInfo) {
+        this(streamInfo, null);
+    }
 
     /**
      * Constructs the class.
@@ -30,7 +72,10 @@ public class Logger {
 
         this.charset = charset;
         this.id = id;
-        this.minimumLevel = minimumLevel;
+
+        for (OutputStream stream : streams) {
+            minimumLevels.put(stream, minimumLevel);
+        }
     }
 
     /**
@@ -89,13 +134,6 @@ public class Logger {
      */
     public Optional<String> getId() {
         return Optional.ofNullable(id);
-    }
-
-    /**
-     * @return the minimum logging level that gets outputted
-     */
-    public Level getMinimumLevel() {
-        return minimumLevel;
     }
 
     /**
@@ -182,25 +220,25 @@ public class Logger {
      * @param message the message to log
      */
     public void print(Level level, Object... message) {
-        if (level.intValue() >= getMinimumLevel().intValue()) {
-            StringBuilder buffer = new StringBuilder();
-            buffer.append(DateUtils.TIMESTAMP.format(new Date()));
+        StringBuilder buffer = new StringBuilder();
+        buffer.append(DateUtils.TIMESTAMP.format(new Date()));
 
-            getId().ifPresent(id -> {
-                buffer.append(" (");
-                buffer.append(id);
-                buffer.append(")");
-            });
+        getId().ifPresent(id -> {
+            buffer.append(" (");
+            buffer.append(id);
+            buffer.append(")");
+        });
 
-            buffer.append(" [");
-            buffer.append(level.getLocalizedName());
-            buffer.append("] ");
+        buffer.append(" [");
+        buffer.append(level.getLocalizedName());
+        buffer.append("] ");
 
-            buffer.append(StringUtils.combine(message));
+        buffer.append(StringUtils.combine(message));
 
-            byte[] payload = buffer.toString().getBytes(getCharset());
+        byte[] payload = buffer.toString().getBytes(getCharset());
 
-            getStreams().forEach(stream -> {
+        getStreams().forEach(stream -> {
+            if (level.intValue() >= minimumLevels.get(stream).intValue()) {
                 int offset = 0;
 
                 try {
@@ -215,7 +253,7 @@ public class Logger {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            });
-        }
+            }
+        });
     }
 }
